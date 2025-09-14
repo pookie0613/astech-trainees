@@ -1,0 +1,26 @@
+services:
+  # Trainees Service
+  trainees_service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: training_trainees_service
+    env_file:
+      - .env
+    environment:
+      DB_CONNECTION: ${DB_CONNECTION}
+      DB_HOST: ${DB_HOST}
+      DB_PORT: ${DB_PORT}
+      DB_DATABASE: ${DB_DATABASE}
+      DB_USERNAME: ${DB_USERNAME}
+      DB_PASSWORD: ${DB_PASSWORD}
+
+    ports:
+      - "8002:8000"
+    networks:
+      - training_network
+    restart: unless-stopped
+
+networks:
+  training_network:
+    external: true
